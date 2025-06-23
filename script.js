@@ -1,4 +1,4 @@
-const totalImages = 20;
+const totalImages = 6;
 const images = [];
 
 for (let i = 1; i <= totalImages; i++) {
