@@ -1,0 +1,60 @@
+const totalImages = 20;
+const images = [];
+
+for (let i = 1; i <= totalImages; i++) {
+  images.push(`images/image${i}.jpg`);
+}
+
+let current = 0;
+const displayTime = 5000; // 5 seconds
+
+const img1 = document.getElementById("img1");
+const img2 = document.getElementById("img2");
+const bg1 = document.querySelector(".bg1");
+const bg2 = document.querySelector(".bg2");
+
+let showingImg1 = true;
+let showingBg1 = true;
+
+// Initial load
+img1.src = images[current];
+img1.style.opacity = 1;
+bg1.style.backgroundImage = `url(${images[current]})`;
+bg1.style.opacity = 1;
+
+setInterval(() => {
+  current = (current + 1) % images.length;
+  const nextImage = images[current];
+
+  if (showingImg1) {
+    img2.src = nextImage;
+    img2.style.animation = "none";
+    void img2.offsetWidth;
+    img2.style.animation = "panzoom 5s ease-in-out forwards";
+
+    img2.style.opacity = 1;
+    img1.style.opacity = 0;
+  } else {
+    img1.src = nextImage;
+    img1.style.animation = "none";
+    void img1.offsetWidth;
+    img1.style.animation = "panzoom 5s ease-in-out forwards";
+
+    img1.style.opacity = 1;
+    img2.style.opacity = 0;
+  }
+
+  // Background fade
+  if (showingBg1) {
+    bg2.style.backgroundImage = `url(${nextImage})`;
+    bg2.style.opacity = 1;
+    bg1.style.opacity = 0;
+  } else {
+    bg1.style.backgroundImage = `url(${nextImage})`;
+    bg1.style.opacity = 1;
+    bg2.style.opacity = 0;
+  }
+
+  showingImg1 = !showingImg1;
+  showingBg1 = !showingBg1;
+}, displayTime);
