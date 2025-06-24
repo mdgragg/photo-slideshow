@@ -1,9 +1,18 @@
-const totalImages = 6;
+const totalImages = 51;
 const images = [];
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 
 for (let i = 1; i <= totalImages; i++) {
   images.push(`images/image${i}.jpg`);
 }
+
+shuffle(images);
 
 let current = 0;
 const displayTime = 5000; // 5 seconds
