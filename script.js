@@ -1,4 +1,4 @@
-const totalImages = 51;
+const totalImages = 209;
 const images = [];
 
 function shuffle(array) {
