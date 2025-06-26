@@ -1,4 +1,4 @@
-const totalImages = 209;
+const totalImages = 226;
 const images = [];
 
 function shuffle(array) {
@@ -15,7 +15,7 @@ for (let i = 1; i <= totalImages; i++) {
 shuffle(images);
 
 let current = 0;
-const displayTime = 5000; // 5 seconds
+const displayTime = 5000;
 
 const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
