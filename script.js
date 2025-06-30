@@ -15,7 +15,9 @@ for (let i = 1; i <= totalImages; i++) {
 shuffle(images);
 
 let current = 0;
+let currentImageUrl = images[current];
 const displayTime = 5000;
+let slideshowTimer;
 
 const img1 = document.getElementById("img1");
 const img2 = document.getElementById("img2");
@@ -31,9 +33,10 @@ img1.style.opacity = 1;
 bg1.style.backgroundImage = `url(${images[current]})`;
 bg1.style.opacity = 1;
 
-setInterval(() => {
-  current = (current + 1) % images.length;
+function showImage(index) {
+  current = (index + images.length) % images.length;
   const nextImage = images[current];
+  currentImageUrl = nextImage;
 
   if (showingImg1) {
     img2.src = nextImage;
@@ -53,7 +56,6 @@ setInterval(() => {
     img2.style.opacity = 0;
   }
 
-  // Background fade
   if (showingBg1) {
     bg2.style.backgroundImage = `url(${nextImage})`;
     bg2.style.opacity = 1;
@@ -66,4 +68,36 @@ setInterval(() => {
 
   showingImg1 = !showingImg1;
   showingBg1 = !showingBg1;
-}, displayTime);
+
+  const progress = ((current + 1) / images.length) * 100;
+  document.getElementById("progress-bar").style.width = `${progress}%`;
+
+  // document.getElementById("counter").textContent = `${current + 1} / ${
+  //   images.length
+  // }`;
+}
+
+function showNext() {
+  showImage(current + 1);
+  resetTimer();
+}
+
+function showPrev() {
+  showImage(current - 1);
+  resetTimer();
+}
+
+function resetTimer() {
+  clearInterval(slideshowTimer);
+  slideshowTimer = setInterval(showNext, displayTime);
+}
+
+document.querySelector(".right-zone").addEventListener("click", showNext);
+document.querySelector(".left-zone").addEventListener("click", showPrev);
+
+slideshowTimer = setInterval(showNext, displayTime);
+
+document.getElementById("download-btn").addEventListener("click", (e) => {
+  e.preventDefault();
+  window.open(currentImageUrl, "_blank");
+});
